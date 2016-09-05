@@ -25,6 +25,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.file/1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.http.common/1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.http.server/1.2.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.interop.java/1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.io/1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.json/1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Ceylon: ceylon.language/1.2.3" level="project" />

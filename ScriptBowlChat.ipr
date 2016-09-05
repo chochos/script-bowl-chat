@@ -222,6 +222,15 @@
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/http/server/1.2.3/ceylon.http.server-1.2.3.src!/" />
       </SOURCES>
     </library>
+    <library name="Ceylon: ceylon.interop.java/1.2.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/interop/java/1.2.3/ceylon.interop.java-1.2.3.car!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/interop/java/1.2.3/ceylon.interop.java-1.2.3.src!/" />
+      </SOURCES>
+    </library>
     <library name="Ceylon: ceylon.io/1.2.3">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/io/1.2.3/ceylon.io-1.2.3.car!/" />
