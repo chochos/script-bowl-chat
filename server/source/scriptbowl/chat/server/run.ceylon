@@ -10,7 +10,7 @@ import ceylon.http.server { newServer, Endpoint,
 import ceylon.io {
     SocketAddress
 }
-import ceylon.json { Json=Object,
+import ceylon.json { JsonObject,
     JsonArray }
 import ceylon.http.common {
     contentType,
@@ -28,6 +28,9 @@ import java.util {
 }
 import ceylon.interop.java {
     javaString
+}
+import ceylon.buffer.charset {
+    utf8
 }
 
 "The entry point for the chat server."
@@ -81,13 +84,13 @@ shared void run() {
 
 "Write an error message to the response."
 void error(Response resp, String message) {
-    writeJson(resp, Json{ "error"->message });
+    writeJson(resp, JsonObject{ "error"->message });
 }
 
 "Write a JSON object to the response."
-void writeJson(Response resp, Json|JsonArray data) {
+void writeJson(Response resp, JsonObject|JsonArray data) {
     value content = data.string;
-    resp.addHeader(contentType("application/json"));
+    resp.addHeader(contentType("application/json", utf8));
     resp.addHeader(contentLength(content.size.string));
     resp.writeString(content);
     resp.flush();
