@@ -2,8 +2,8 @@
 by("Enrique Zamudio")
 native ("jvm")
 module scriptbowl.chat.server "1.0.0" {
-    import ceylon.http.server "1.2.3";
-    import ceylon.json "1.2.3";
-    import ceylon.interop.java "1.2.3";
+    import ceylon.http.server "1.3.0";
+    import ceylon.json "1.3.0";
+    import ceylon.interop.java "1.3.0";
     import java.base "7";
 }
