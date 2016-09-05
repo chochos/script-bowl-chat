@@ -13,7 +13,7 @@ void login(Request req, Response resp) {
             error(resp, "User already logged in");
         } else {
             value t = server.addUser(User(uname));
-            writeJson(resp, JsonObject{"token"->t});
+            writeJson(resp, JsonObject{"token"->t,"name"->uname});
         }
     } else {
         error(resp, "You must specify a username.");
