@@ -2,6 +2,8 @@ import ceylon.json {
     JsonObject, parse,
     JsonArray
 }
+
+"This is called when the list of new messages is received."
 shared void doLoadMessages(XHR req)() {
     if (is JsonArray resp = parse(req.responseText)) {
         value sb = StringBuilder();
@@ -27,12 +29,14 @@ shared void doLoadMessages(XHR req)() {
     }
 }
 
+"This is called periodically, to load new messages from the server"
 shared void loadMessages() {
     if (client.loggedIn) {
         xhr(client.urlMessages.replace("USER", client.token).replace("TS", "``client.lastTimestamp``"), doLoadMessages);
     }
 }
 
+"This is called upon Ajax submit response"
 shared void doSubmit(XHR req)() {
     if (is JsonObject resp = parse(req.responseText),
         is Integer ts = resp.get("t")) {
@@ -40,7 +44,6 @@ shared void doSubmit(XHR req)() {
         dynamic {
             msg = document.getElementById("txt").\ivalue;
         }
-        print("Submit OK: ``ts``");
         client.lastTimestamp = ts;
         value newMessage = "<p><b>``client.username``:</b> ``msg`` <i>``ts``</i></p>";
         client.appendToChat(newMessage);
@@ -50,6 +53,7 @@ shared void doSubmit(XHR req)() {
     }
 }
 
+"This method is called by the Send button, to add a message to the chat."
 shared void submit() {
     if (client.loggedIn) {
         String txt;
