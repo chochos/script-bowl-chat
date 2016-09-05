@@ -53,6 +53,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/jsclient.iml" filepath="$PROJECT_DIR$/jsclient.iml" />
       <module fileurl="file://$PROJECT_DIR$/script-bowl-chat.iml" filepath="$PROJECT_DIR$/script-bowl-chat.iml" />
     </modules>
   </component>
@@ -165,6 +166,9 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Ceylon: ceylon.buffer/1.2.3">
