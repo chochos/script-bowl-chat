@@ -27,7 +27,7 @@ object server {
     "Return the messages excluding the specified source, with a timestamp
      later than the one specified."
     shared [Message*] listMessages(String username, Integer since) =>
-        { for (m in messages) if (m.timestamp >= since && m.canShowTo(username)) m }
+        { for (m in messages) if (m.timestamp > since && m.canShowTo(username)) m }
             .sort((x, y) => x.timestamp <=> y.timestamp);
 
     shared [User*] listUsers(String exclude) =>
