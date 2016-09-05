@@ -1,0 +1,8 @@
+
+[defaults]
+offline=false
+flatclasspath=false
+autoexportmavendependencies=false
+
+[repositories]
+lookup=/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules
