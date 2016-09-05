@@ -1,8 +1,13 @@
+"An object containing shared information for the client functions."
 shared object client {
+    "The username chosen for the chat."
     shared variable String username = "";
+    "The token returned by the server for authentication."
     shared variable String token = "";
+    "The timestamp of the last message sent or received."
     shared variable Integer lastTimestamp=0;
 
+    "Tells whether the user has been already logged in."
     shared Boolean loggedIn => !token.empty;
 
     String host = "http://localhost:8080";

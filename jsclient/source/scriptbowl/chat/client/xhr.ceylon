@@ -1,3 +1,4 @@
+"A dynamic interface for the XMLHttpRequest object."
 shared dynamic XHR {
     shared formal void open(String method, String url, Boolean async=true,
         String username="", String password="");
@@ -6,7 +7,14 @@ shared dynamic XHR {
     shared formal String responseText;
 }
 
-shared void xhr(String url, Anything()(XHR) f) {
+"Makes an async request with the function returned
+ by [[f]] as a callback."
+shared void xhr(
+        "The URL to send the request to."
+        String url,
+        "A function that receives the XHR object and returns a callback
+         for then the response is received."
+        Anything()(XHR) f) {
     XHR r;
     dynamic {
         r = XMLHttpRequest();
