@@ -15,3 +15,12 @@ shared void xhr(String url, Anything()(XHR) f) {
     r.open("GET", url);
     r.send();
 }
+
+"Initial setup for the client."
+shared void setup() {
+    dynamic {
+        document.getElementById("logon").onclick=login;
+        document.getElementById("send").onclick=submit;
+    }
+    print("Setup OK! Ceylon ``language.version`` runtime ``runtime.version``");
+}
