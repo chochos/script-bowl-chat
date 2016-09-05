@@ -5,6 +5,7 @@ shared void doLogin(XHR req)() {
     if (is JsonObject resp = parse(req.responseText)) {
         if (is String t = resp.get("token")) {
             client.token = t;
+            client.username = resp.getString("name");
             dynamic {
                 setInterval(listUsers, 1000);
                 setInterval(loadMessages, 1000);
