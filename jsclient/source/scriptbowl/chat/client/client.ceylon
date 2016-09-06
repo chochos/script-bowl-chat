@@ -22,8 +22,10 @@ shared object client {
      chat section, scrolling to the bottom if needed."
     shared void appendToChat(String html) {
         dynamic {
-            dynamic current = document.getElementById("chat").innerHTML;
-            document.getElementById("chat").innerHTML = current + html;
+            dynamic chatDiv = document.getElementById("chat");
+            dynamic current = chatDiv.innerHTML;
+            chatDiv.innerHTML = current + html;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
         }
     }
 }

@@ -29,6 +29,8 @@ shared void setup() {
     dynamic {
         document.getElementById("logon").onclick=login;
         document.getElementById("send").onclick=submit;
+        document.getElementById("form").onsubmit=submit;
+        document.getElementById("txt").focus();
     }
     print("Setup OK! Ceylon ``language.version`` runtime ``runtime.version``");
 }

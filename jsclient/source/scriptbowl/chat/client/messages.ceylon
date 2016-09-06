@@ -49,12 +49,13 @@ shared void doSubmit(XHR req)() {
         client.appendToChat(newMessage);
         dynamic {
             document.getElementById("txt").\ivalue = "";
+            document.getElementById("txt").focus();
         }
     }
 }
 
 "This method is called by the Send button, to add a message to the chat."
-shared void submit() {
+Boolean submit() {
     if (client.loggedIn) {
         String txt;
         dynamic {
@@ -63,4 +64,5 @@ shared void submit() {
         String msg = txt.replace("/", "\\/");
         xhr(client.urlSubmit.replace("USER", client.token).replace("MSG", msg), doSubmit);
     }
+    return false;
 }
