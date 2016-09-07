@@ -7,9 +7,9 @@ import ceylon.json {
 }
 
 void login(Request req, Response resp) {
-    if (exists uname = req.pathParameter("username")) {
+    if (exists uname = req.queryParameter("u")) {
         //Check for duplicates
-        if (exists logged = server.getUser(uname)) {
+        if (server.isLoggedIn(uname)) {
             error(resp, "User already logged in");
         } else {
             value t = server.addUser(User(uname));
@@ -33,6 +33,6 @@ void logout(Request req, Response resp) {
 "Authenticate the user from the request,
  returning an error message if something goes wrong."
 User|String auth(Request req, Response resp) =>
-    if (exists u = req.pathParameter("username"))
+    if (exists u = req.queryParameter("u"))
     then (server.getUser(u) else "Invalid user.")
     else "You must specify a username.";

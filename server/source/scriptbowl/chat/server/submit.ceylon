@@ -7,8 +7,8 @@ import ceylon.json { JsonObject }
 void submit(Request req, Response resp) {
     value u = auth(req, resp);
     if (is User u) {
-        if (exists m=req.pathParameter("msg")) {
-            Message msg = if (exists to = req.pathParameter("to"), !to.empty)
+        if (exists m=req.queryParameter("m")) {
+            Message msg = if (exists to = req.queryParameter("d"), !to.empty)
                 then Message(u.name, m, to)
                 else Message(u.name, m);
             server.addMessage(msg);

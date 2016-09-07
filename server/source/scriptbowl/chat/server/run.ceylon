@@ -1,7 +1,7 @@
 import java.lang { System, JString=String }
 import ceylon.http.server { newServer, Endpoint,
     Options,
-    template,
+    equals,
     Response,
     AsynchronousEndpoint,
     isRoot,
@@ -45,23 +45,23 @@ shared void run() {
     value manager = CeylonUtils.repoManager().extraUserRepos(repos).buildManager();
     value server = newServer {
         Endpoint {
-            path = template("/login/{username}");
+            path = equals("/login");
             login;
         },
         Endpoint {
-            path = template("/logout/{username}");
+            path = equals("/logout");
             logout;
         },
         Endpoint {
-            path = template("/submit/{username}/{msg}/{to}");
+            path = equals("/submit");
             submit;
         },
         Endpoint {
-            path = template("/fetch/{username}/{since}");
+            path = equals("/fetch");
             fetchMessages;
         },
         Endpoint {
-            path = template("/users/{username}");
+            path = equals("/users");
             fetchUsers;
         },
         AsynchronousEndpoint {

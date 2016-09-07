@@ -19,6 +19,8 @@ object server {
         return users.remove(username) exists;
     }
     shared User? getUser(String username) => users[username];
+    shared Boolean isLoggedIn(String username) =>
+        users.find((t->u) => u.name == username) exists;
 
     shared void addMessage(Message m) {
         print("New message from ``m``");
