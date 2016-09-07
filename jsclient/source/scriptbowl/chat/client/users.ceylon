@@ -1,8 +1,10 @@
 import ceylon.json { JsonObject, parse,
     JsonArray }
+import ceylon.interop.browser { XMLHttpRequest }
+import ceylon.interop.browser.dom { Event }
 
 "The callback for the login response."
-shared void doLogin(XHR req)() {
+void doLogin(XMLHttpRequest req)(Event event) {
     if (is JsonObject resp = parse(req.responseText)) {
         if (is String t = resp.get("token")) {
             client.token = t;
@@ -33,11 +35,11 @@ shared void login() {
         uname = document.getElementById("login").\ivalue;
     }
     print("Login ``uname``");
-    xhr(client.urlLogin.replace("USER", uname), doLogin);
+    xhr(client.urlLogin.replace("USER", encodeParam(uname)), doLogin);
 }
 
 "The callback function for handling the user list response."
-shared void doListUsers(XHR req)() {
+void doListUsers(XMLHttpRequest req)(Event event) {
     String html;
     if (is JsonArray users = parse(req.responseText)) {
         value sb = StringBuilder();
@@ -64,6 +66,6 @@ shared void doListUsers(XHR req)() {
 "This is called periodically to list the users connected to the chat."
 shared void listUsers() {
     if (client.loggedIn) {
-        xhr(client.urlUsers.replace("USER", client.token), doListUsers);
+        xhr(client.urlUsers.replace("USER", encodeParam(client.token)), doListUsers);
     }
 }

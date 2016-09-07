@@ -1,25 +1,16 @@
-"A dynamic interface for the XMLHttpRequest object."
-shared dynamic XHR {
-    shared formal void open(String method, String url, Boolean async=true,
-        String username="", String password="");
-    shared formal void send();
-    shared formal void addEventListener(String event, Anything() f);
-    shared formal String responseText;
-}
+import ceylon.interop.browser { XMLHttpRequest, newXMLHttpRequest }
+import ceylon.interop.browser.dom { Event }
 
 "Makes an async request with the function returned
  by [[f]] as a callback."
-shared void xhr(
+void xhr(
         "The URL to send the request to."
         String url,
         "A function that receives the XHR object and returns a callback
          for then the response is received."
-        Anything()(XHR) f) {
-    XHR r;
-    dynamic {
-        r = XMLHttpRequest();
-    }
-    r.addEventListener("load", f(r));
+        Anything(Event)(XMLHttpRequest) f) {
+    XMLHttpRequest r = newXMLHttpRequest();
+    r.onload = f(r);
     r.open("GET", url);
     r.send();
 }
@@ -33,4 +24,10 @@ shared void setup() {
         document.getElementById("txt").focus();
     }
     print("Setup OK! Ceylon ``language.version`` runtime ``runtime.version``");
+}
+
+String encodeParam(String param) {
+    dynamic {
+        return encodeURIComponent(param);
+    }
 }

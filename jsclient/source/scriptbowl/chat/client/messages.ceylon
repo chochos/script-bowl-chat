@@ -2,9 +2,11 @@ import ceylon.json {
     JsonObject, parse,
     JsonArray
 }
+import ceylon.interop.browser { XMLHttpRequest }
+import ceylon.interop.browser.dom { Event }
 
 "This is called when the list of new messages is received."
-shared void doLoadMessages(XHR req)() {
+void doLoadMessages(XMLHttpRequest req)(Event event) {
     if (is JsonArray resp = parse(req.responseText)) {
         value sb = StringBuilder();
         for (jsm in resp) {
@@ -32,12 +34,13 @@ shared void doLoadMessages(XHR req)() {
 "This is called periodically, to load new messages from the server"
 shared void loadMessages() {
     if (client.loggedIn) {
-        xhr(client.urlMessages.replace("USER", client.token).replace("TS", "``client.lastTimestamp``"), doLoadMessages);
+        xhr(client.urlMessages.replace("USER", encodeParam(client.token))
+            .replace("TS", client.lastTimestamp.string), doLoadMessages);
     }
 }
 
 "This is called upon Ajax submit response"
-shared void doSubmit(XHR req)() {
+void doSubmit(XMLHttpRequest req)(Event event) {
     if (is JsonObject resp = parse(req.responseText),
         is Integer ts = resp.get("t")) {
         String msg;
@@ -62,7 +65,8 @@ Boolean submit() {
             txt = document.getElementById("txt").\ivalue;
         }
         String msg = txt.replace("/", "\\/");
-        xhr(client.urlSubmit.replace("USER", client.token).replace("MSG", msg), doSubmit);
+        xhr(client.urlSubmit.replace("USER", encodeParam(client.token))
+            .replace("MSG", encodeParam(msg)), doSubmit);
     }
     return false;
 }

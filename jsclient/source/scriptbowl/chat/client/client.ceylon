@@ -1,3 +1,5 @@
+import ceylon.interop.browser { window }
+
 "An object containing shared information for the client functions."
 shared object client {
     "The username chosen for the chat."
@@ -11,21 +13,22 @@ shared object client {
     shared Boolean loggedIn => !token.empty;
 
     String host = "http://localhost:8080";
-    shared String urlLogin = host + "/login/USER";
-    shared String urlUsers = host + "/users/USER";
-    shared String urlMessages = host + "/fetch/USER/TS";
-    shared String urlLogout = host + "/logout/USER";
-    shared String urlSubmit = host + "/submit/USER/MSG/";
-    shared String urlDM = host + "/submit/USER/MSG/DST";
+    shared String urlLogin = host + "/login?u=USER";
+    shared String urlUsers = host + "/users?u=USER";
+    shared String urlMessages = host + "/fetch?u=USER&t=TS";
+    shared String urlLogout = host + "/logout?u=USER";
+    shared String urlSubmit = host + "/submit?u=USER&m=MSG";
+    shared String urlDM = host + "/submit?u=USER&m=MSG&d=DST";
 
     "Appends the specified HTML to the already existing text in the
      chat section, scrolling to the bottom if needed."
     shared void appendToChat(String html) {
-        dynamic {
-            dynamic chatDiv = document.getElementById("chat");
-            dynamic current = chatDiv.innerHTML;
-            chatDiv.innerHTML = current + html;
-            chatDiv.scrollTop = chatDiv.scrollHeight;
+        if (exists chatDiv = window.document.getElementById("chat")) {
+            chatDiv.innerHTML += html;
+            dynamic {
+                dynamic chatDiv2 = chatDiv;
+                chatDiv2.scrollTop = chatDiv2.scrollHeight;
+            }
         }
     }
 }
