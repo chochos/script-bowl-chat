@@ -1,5 +1,6 @@
-import ceylon.interop.browser { XMLHttpRequest, newXMLHttpRequest }
-import ceylon.interop.browser.dom { Event }
+import ceylon.interop.browser { window, XMLHttpRequest, newXMLHttpRequest }
+import ceylon.interop.browser.dom { Event,
+    EventListener }
 
 "Makes an async request with the function returned
  by [[f]] as a callback."
@@ -17,11 +18,20 @@ void xhr(
 
 "Initial setup for the client."
 shared void setup() {
-    dynamic {
-        document.getElementById("logon").onclick=login;
-        document.getElementById("send").onclick=submit;
-        document.getElementById("form").onsubmit=submit;
-        document.getElementById("txt").focus();
+    if (exists e = window.document.getElementById("logon")) {
+        e.addEventListener("click", object satisfies EventListener {
+            handleEvent = login;
+        });
+    }
+    if (exists e = window.document.getElementById("send")) {
+        e.addEventListener("click", object satisfies EventListener {
+            handleEvent = submit;
+        });
+    }
+    if (exists e = window.document.getElementById("form")) {
+        e.addEventListener("submit", object satisfies EventListener {
+            handleEvent = submit;
+        });
     }
     print("Setup OK! Ceylon ``language.version`` runtime ``runtime.version``");
 }
