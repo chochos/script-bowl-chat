@@ -7,9 +7,9 @@ import ceylon.interop.browser.dom { Event,
 "The callback for the login response."
 void doLogin(XMLHttpRequest req)(Event event) {
     if (is JsonObject resp = parse(req.responseText)) {
-        if (is String t = resp.get("token")) {
+        if (exists t = resp.getStringOrNull("token")) {
             client.token = t;
-            client.username = resp.getString("name");
+            client.username =resp.getString("name");
             dynamic {
                 setInterval(listUsers, 1000);
                 setInterval(loadMessages, 1000);
@@ -17,6 +17,11 @@ void doLogin(XMLHttpRequest req)(Event event) {
             }
             if (is HTMLElement e = window.document.getElementById("txt")) {
                 e.focus();
+            }
+        } else if (exists err = resp.getStringOrNull("error")) {
+            dynamic {
+                alert("There was an error logging in:
+                       ``err``");
             }
         } else {
             dynamic {
