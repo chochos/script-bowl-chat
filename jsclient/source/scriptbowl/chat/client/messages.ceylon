@@ -2,32 +2,40 @@ import ceylon.json {
     JsonObject, parse,
     JsonArray
 }
-import ceylon.interop.browser { XMLHttpRequest }
-import ceylon.interop.browser.dom { Event }
+import ceylon.interop.browser { XMLHttpRequest, window }
+import ceylon.interop.browser.dom { Event, HTMLElement }
 
 "This is called when the list of new messages is received."
 void doLoadMessages(XMLHttpRequest req)(Event event) {
     if (is JsonArray resp = parse(req.responseText)) {
         value sb = StringBuilder();
+        value sbd = StringBuilder();
         for (jsm in resp) {
             if (is JsonObject m = jsm) {
                 value ts = m.getInteger("t");
-                sb.append("<p><b>").append(m.getString("from"))
-                    .append(":</b> ").append(m.getString("m"))
-                    .append(" <i>").append(ts.string).append("</i></p>");
+                value dm = m.getStringOrNull("to");
+                String txt = "<p><b>``m.getString("from")``:</b> ``m.getString("m")`` <i>``ts``</i></p>";
+                if (dm exists) {
+                    sbd.append(txt);
+                } else {
+                    sb.append(txt);
+                }
                 if (ts > client.lastTimestamp) {
                     client.lastTimestamp = ts;
                 }
             }
         }
         if (sb.empty && client.lastTimestamp == 0) {
-            dynamic {
-                document.getElementById("chat").innerHTML =
-                   "Nothing has been said yet. Start a conversation!";
+            if (exists e = window.document.getElementById("chat")) {
+                e.innerHTML = "Nothing has been said yet. Start a conversation!";
             }
         } else {
             client.appendToChat(sb.string);
         }
+        if (!sbd.empty) {
+            client.appendToDM(sbd.string);
+        }
+        //TODO DM's
     }
 }
 
@@ -50,23 +58,42 @@ void doSubmit(XMLHttpRequest req)(Event event) {
         client.lastTimestamp = ts;
         value newMessage = "<p><b>``client.username``:</b> ``msg`` <i>``ts``</i></p>";
         client.appendToChat(newMessage);
-        dynamic {
-            document.getElementById("txt").\ivalue = "";
-            document.getElementById("txt").focus();
+        if (is HTMLElement e = window.document.getElementById("txt")) {
+            dynamic {
+                document.getElementById("txt").\ivalue = "";
+            }
+            e.focus();
         }
     }
 }
 
 "This method is called by the Send button, to add a message to the chat."
-Boolean submit() {
+Boolean submit(Event event) {
     if (client.loggedIn) {
         String txt;
         dynamic {
             txt = document.getElementById("txt").\ivalue;
         }
-        String msg = txt.replace("/", "\\/");
-        xhr(client.urlSubmit.replace("USER", encodeParam(client.token))
-            .replace("MSG", encodeParam(msg)), doSubmit);
+        String msg;
+        String? dst;
+        //Check if it's a direct message
+        if (txt.startsWith("@"), exists p0 = txt.firstOccurrence(' ')) {
+            dst = txt[1..p0].trimmed;
+            msg = txt.spanFrom(p0+1).trimmed;
+        } else {
+            msg = txt.trimmed;
+            dst = null;
+        }
+        if (!msg.empty) {
+            String url = (dst exists then client.urlDM else client.urlSubmit)
+                .replace("USER", encodeParam(client.token))
+                .replace("MSG", encodeParam(msg));
+            if (exists dst) {
+                xhr(url.replace("DST", encodeParam(dst)), doSubmit);
+            } else {
+                xhr(url, doSubmit);
+            }
+        }
     }
     return false;
 }

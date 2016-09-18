@@ -1,7 +1,8 @@
 import ceylon.json { JsonObject, parse,
     JsonArray }
-import ceylon.interop.browser { XMLHttpRequest }
-import ceylon.interop.browser.dom { Event }
+import ceylon.interop.browser { XMLHttpRequest, window }
+import ceylon.interop.browser.dom { Event,
+    HTMLElement }
 
 "The callback for the login response."
 void doLogin(XMLHttpRequest req)(Event event) {
@@ -13,6 +14,9 @@ void doLogin(XMLHttpRequest req)(Event event) {
                 setInterval(listUsers, 1000);
                 setInterval(loadMessages, 1000);
                 document.getElementById("myModal").style.display = "none";
+            }
+            if (is HTMLElement e = window.document.getElementById("txt")) {
+                e.focus();
             }
         } else {
             dynamic {
@@ -29,7 +33,7 @@ void doLogin(XMLHttpRequest req)(Event event) {
 }
 
 "Sends an async login request."
-shared void login() {
+void login(Event event) {
     String uname;
     dynamic {
         uname = document.getElementById("login").\ivalue;
@@ -58,8 +62,8 @@ void doListUsers(XMLHttpRequest req)(Event event) {
     } else {
         html = "Something bad happened.";
     }
-    dynamic {
-        document.getElementById("users").innerHTML = html;
+    if (exists e = window.document.getElementById("users")) {
+        e.innerHTML = html;
     }
 }
 

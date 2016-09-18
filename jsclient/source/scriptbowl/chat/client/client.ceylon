@@ -25,10 +25,15 @@ shared object client {
     shared void appendToChat(String html) {
         if (exists chatDiv = window.document.getElementById("chat")) {
             chatDiv.innerHTML += html;
-            dynamic {
-                dynamic chatDiv2 = chatDiv;
-                chatDiv2.scrollTop = chatDiv2.scrollHeight;
-            }
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+    }
+    "Appends the specified HTML to the already existing text in the
+     DM section, scrolling to the bottom if needed."
+    shared void appendToDM(String html) {
+        if (exists dms = window.document.getElementById("dms")) {
+            dms.innerHTML += html;
+            dms.scrollTop = dms.scrollHeight;
         }
     }
 }
