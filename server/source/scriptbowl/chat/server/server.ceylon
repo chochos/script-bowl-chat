@@ -23,7 +23,11 @@ object server {
         users.find((t->u) => u.name == username) exists;
 
     shared void addMessage(Message m) {
-        print("New message from ``m``");
+        if (exists to=m.to) {
+            print("New message from ``m`` (DM to ``to``)");
+        } else {
+            print("New message from ``m``");
+        }
         messages.add(m);
     }
     "Return the messages excluding the specified source, with a timestamp

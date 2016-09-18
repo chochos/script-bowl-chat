@@ -10,6 +10,7 @@ void login(Request req, Response resp) {
     if (exists uname = req.queryParameter("u")) {
         //Check for duplicates
         if (server.isLoggedIn(uname)) {
+            print("``uname`` is already logged in.");
             error(resp, "User already logged in");
         } else {
             value t = server.addUser(User(uname));
