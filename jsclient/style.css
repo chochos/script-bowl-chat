@@ -1,3 +1,8 @@
+body {
+	font-family:"Arial";
+	font-size:16px;
+}
+
 /* The Modal (background) */
 .modal {
     display: block; /* Hidden by default */
@@ -50,13 +55,21 @@
 	float:right;
     width:80%;
 }
+.users {
+	border:1px;
+	border-style:solid;
+	height:auto;
+	min-height:50px;
+}
 .dms {
 	width:95%;
     height:auto;
-	min-height:100;
+	min-height:400px;
 	border:1px;
 	border-style:solid;
 	overflow-y:scroll;
+	background:#f0f0f0;
+	vertical-align:bottom;
 }
 .powered {
 	text-align:right;
