@@ -49,21 +49,33 @@ shared void loadMessages() {
 
 "This is called upon Ajax submit response"
 void doSubmit(XMLHttpRequest req)(Event event) {
-    if (is JsonObject resp = parse(req.responseText),
-        is Integer ts = resp.get("t")) {
-        String msg;
-        dynamic {
-            msg = document.getElementById("txt").\ivalue;
-        }
-        client.lastTimestamp = ts;
-        value newMessage = "<p><b>``client.username``:</b> ``msg`` <i>``ts``</i></p>";
-        client.appendToChat(newMessage);
-        if (is HTMLElement e = window.document.getElementById("txt")) {
+    if (is JsonObject resp = parse(req.responseText)) {
+        if (exists ts = resp.getIntegerOrNull("t")) {
+            String msg;
             dynamic {
-                document.getElementById("txt").\ivalue = "";
+                msg = document.getElementById("txt").\ivalue;
             }
-            e.focus();
+            client.lastTimestamp = ts;
+            value newMessage = "<p><b>``client.username``:</b> ``msg`` <i>``ts``</i></p>";
+            client.appendToChat(newMessage);
+            if (is HTMLElement e = window.document.getElementById("txt")) {
+                dynamic {
+                    document.getElementById("txt").\ivalue = "";
+                }
+                e.focus();
+            }
+            return;
+        } else if (exists err = resp.getStringOrNull("error")) {
+            dynamic {
+                alert("Could not send message:
+                       ``err``");
+            }
+            return;
         }
+    }
+    dynamic {
+        alert("Something bad happened:
+               ``req.responseText``");
     }
 }
 
