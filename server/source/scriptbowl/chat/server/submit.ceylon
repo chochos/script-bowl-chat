@@ -11,16 +11,17 @@ void submit(Request req, Response resp) {
     if (is User u) {
         if (exists m = req.queryParameter("m")) {
             Message msg;
+            value escapedMessage = m.replace("<", "&lt;").replace(">", "&gt;");
             if (exists to = req.queryParameter("d"), !to.empty) {
                 if (server.isLoggedIn(to)) {
-                    msg = Message(u.name, m, to);
+                    msg = Message(u.name, escapedMessage, to);
                 } else {
                     print("Ignoring message from ``u.name`` to invalid user ``to``");
                     error(resp, "User ``to`` is not logged in, cannot send DM");
                     return;
                 }
             } else {
-                msg = Message(u.name, m);
+                msg = Message(u.name, escapedMessage);
             }
             server.addMessage(msg);
             writeJson(resp, JsonObject {
