@@ -18,22 +18,18 @@ void doLogin(XMLHttpRequest req)(Event event) {
             if (is HTMLElement e = window.document.getElementById("txt")) {
                 e.focus();
             }
+            return;
         } else if (exists err = resp.getStringOrNull("error")) {
             dynamic {
                 alert("There was an error logging in:
                        ``err``");
             }
-        } else {
-            dynamic {
-                alert("Something bad happened. Reload and retry.
-                       ``req.responseText``");
-            }
+            return;
         }
-    } else {
-        dynamic {
-            alert("Something bad happened. Reload and retry.
-                   ``req.responseText``");
-        }
+    }
+    dynamic {
+        alert("Something bad happened. Reload and retry.
+               ``req.responseText``");
     }
 }
 
