@@ -47,6 +47,10 @@ body {
     border-style:solid;
 	overflow-y:scroll;
 }
+.chat i {
+    color:#a0a0a0;
+	font-size:12px;
+}
 #sidebar {
 	float:left;
     width:20%;
@@ -70,6 +74,10 @@ body {
 	overflow-y:scroll;
 	background:#f0f0f0;
 	vertical-align:bottom;
+}
+.dms i {
+    color:#a0a0a0;
+	font-size:12px;
 }
 .powered {
 	text-align:right;
