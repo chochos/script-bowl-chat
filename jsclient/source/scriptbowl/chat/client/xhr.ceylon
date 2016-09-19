@@ -33,7 +33,9 @@ shared void setup() {
             handleEvent = submit;
         });
     }
-    print("Setup OK! Ceylon ``language.version`` runtime ``runtime.version``");
+    if (exists e = window.document.getElementById("powered")) {
+        e.innerHTML = "Powered by Ceylon ``language.version``";
+    }
 }
 
 String encodeParam(String param) {

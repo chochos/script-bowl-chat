@@ -52,7 +52,8 @@
 }
 .dms {
 	width:95%;
-	height:80%;
+    height:auto;
+	min-height:100;
 	border:1px;
 	border-style:solid;
 	overflow-y:scroll;
