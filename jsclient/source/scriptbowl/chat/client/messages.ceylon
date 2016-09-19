@@ -4,6 +4,9 @@ import ceylon.json {
 }
 import ceylon.interop.browser { XMLHttpRequest, window }
 import ceylon.interop.browser.dom { Event, HTMLElement }
+import ceylon.time {
+    fixedTime
+}
 
 "This is called when the list of new messages is received."
 void doLoadMessages(XMLHttpRequest req)(Event event) {
@@ -14,7 +17,7 @@ void doLoadMessages(XMLHttpRequest req)(Event event) {
             if (is JsonObject m = jsm) {
                 value ts = m.getInteger("t");
                 value dm = m.getStringOrNull("to");
-                String txt = "<p><b>``m.getString("from")``:</b> ``m.getString("m")`` <i>``ts``</i></p>";
+                String txt = "<p><b>``m.getString("from")``:</b> ``m.getString("m")`` <i>``fixedTime(ts).instant().time()``</i></p>";
                 if (dm exists) {
                     sbd.append(txt);
                 } else {
@@ -56,7 +59,7 @@ void doSubmit(XMLHttpRequest req)(Event event) {
                 msg = document.getElementById("txt").\ivalue;
             }
             client.lastTimestamp = ts;
-            value newMessage = "<p><b>``client.username``:</b> ``msg`` <i>``ts``</i></p>";
+            value newMessage = "<p><b>``client.username``:</b> ``msg.replace("<", "&lt;").replace(">", "&gt;")`` <i>``fixedTime(ts).instant().time()``</i></p>";
             client.appendToChat(newMessage);
             if (is HTMLElement e = window.document.getElementById("txt")) {
                 dynamic {
