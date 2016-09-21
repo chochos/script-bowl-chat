@@ -48,7 +48,7 @@ body {
 	overflow-y:scroll;
 }
 .chat i {
-    color:#a0a0a0;
+    color:#00a000;
 	font-size:12px;
 }
 #sidebar {
@@ -59,11 +59,13 @@ body {
 	float:right;
     width:80%;
 }
-.users {
+#users {
 	border:1px;
 	border-style:solid;
 	height:auto;
 	min-height:50px;
+	width:95%;
+	background:#d0d0f0;
 }
 .dms {
 	width:95%;
@@ -76,7 +78,7 @@ body {
 	vertical-align:bottom;
 }
 .dms i {
-    color:#a0a0a0;
+    color:#00a000;
 	font-size:12px;
 }
 .powered {

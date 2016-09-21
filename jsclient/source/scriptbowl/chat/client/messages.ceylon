@@ -19,9 +19,8 @@ void doLoadMessages(XMLHttpRequest req)(Event event) {
         for (jsm in resp) {
             if (is JsonObject jsonMessage = jsm,
                     exists msg = parseMessage(jsonMessage)) {
-                String txt = "<p><b>``msg.from``:</b>
-                              ``msg.message``
-                              <i>``msg.time``</i></p>";
+                String txt = "<p><i>``msg.time``</i> <b>``msg.from``:</b>
+                              ``msg.message``</p>";
                 if (exists dm = msg.to) {
                     sbd.append(txt);
                 } else {
@@ -63,9 +62,9 @@ void doSubmit(XMLHttpRequest req)(Event event) {
             dynamic {
                 msg = document.getElementById("txt").\ivalue;
             }
-            value newMessage = "<p><b>``client.username``:</b>
-                                ``msg.replace("<", "&lt;").replace(">", "&gt;")``
-                                <i>``fixedTime(ts).instant().time()``</i></p>";
+            value newMessage = "<p><i>``fixedTime(ts).instant().time()``</i>
+                                <b>``client.username``:</b>
+                                ``msg.replace("<", "&lt;").replace(">", "&gt;")``</p>";
             client.appendToChat(newMessage);
             client.lastTimestamp = ts;
             if (is HTMLElement e = window.document.getElementById("txt")) {
