@@ -3,6 +3,9 @@ import ceylon.http.server {
     Response
 }
 import ceylon.json { JsonObject }
+import scriptbowl.chat.common {
+    Message
+}
 
 "Invoked when a user submits a message, which can be public or a DM
  to a certain user."

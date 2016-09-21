@@ -3,6 +3,9 @@ import ceylon.collection { HashMap,
 import ceylon.json {
     JsonObject
 }
+import scriptbowl.chat.common {
+    Message
+}
 
 object server {
     value users = HashMap<String,User>();
@@ -40,29 +43,6 @@ object server {
         [ for (k->u in users) if (u.name != exclude) u];
 
     String tokenForUser(User u) => "``u.name``_``u.since``";
-}
-
-"A message from a user"
-class Message(from, message, to=null, timestamp=system.milliseconds) {
-    shared String from;
-    shared String? to;
-    shared String message;
-    shared Integer timestamp;
-    "Determines if the message should be shown to the specified user.
-     This means that the message is intended for the user, or wasn't
-     sent by the user."
-    shared Boolean canShowTo(String user) {
-        if (exists receiver=to) {
-            return receiver==user;
-        }
-        return from != user;
-    }
-    shared JsonObject toJson() =>
-        if (exists t=to) then
-            JsonObject{ "from"->from, "to"->t, "t"->timestamp, "m"->message}
-        else
-            JsonObject{ "from"->from, "t"->timestamp, "m"->message};
-    shared actual String string = "``from``: ``message``";
 }
 
 "A user that's logged into the chat server"

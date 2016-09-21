@@ -40,8 +40,10 @@ shared void run() {
     value repos = Arrays.asList<JString>(
         javaString("/Users/ezamudio/Projects/ceylon/ceylon/compiler-js/build/runtime"),
         javaString("/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/jsclient/modules"),
+        javaString("/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/common/modules"),
         javaString("/Users/ezamudio/Projects/ceylon/ceylon/dist/dist/repo"),
-        javaString("/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules"));
+        javaString("/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules"),
+        javaString("https://herd.ceylon-lang.org/repo/1"));
     value manager = CeylonUtils.repoManager().extraUserRepos(repos).buildManager();
     value server = newServer {
         Endpoint {
