@@ -24,7 +24,11 @@ shared object client {
      chat section, scrolling to the bottom if needed."
     shared void appendToChat(String html) {
         if (exists chatDiv = window.document.getElementById("chat")) {
-            chatDiv.innerHTML += html;
+            if (lastTimestamp > 0) {
+                chatDiv.innerHTML += html;
+            } else {
+                chatDiv.innerHTML = html;
+            }
             chatDiv.scrollTop = chatDiv.scrollHeight;
         }
     }

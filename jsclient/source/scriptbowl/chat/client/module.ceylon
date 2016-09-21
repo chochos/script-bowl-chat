@@ -4,4 +4,5 @@ module scriptbowl.chat.client "1.0.0" {
     import ceylon.json "1.3.0";
     import ceylon.interop.browser "1.3.0";
     import ceylon.time "1.3.0";
+    import scriptbowl.chat.common "1.0.0";
 }

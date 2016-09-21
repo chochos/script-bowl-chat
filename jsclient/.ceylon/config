@@ -4,5 +4,6 @@ offline=false
 flatclasspath=false
 autoexportmavendependencies=false
 
+
 [repositories]
-lookup=/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules
+lookup=/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/common/modules

@@ -7,26 +7,28 @@ import ceylon.interop.browser.dom { Event, HTMLElement }
 import ceylon.time {
     fixedTime
 }
-
+import scriptbowl.chat.common {
+    parseMessage
+}
 "This is called when the list of new messages is received."
 void doLoadMessages(XMLHttpRequest req)(Event event) {
     if (is JsonArray resp = parse(req.responseText)) {
         value sb = StringBuilder();
         value sbd = StringBuilder();
+        variable value lts = client.lastTimestamp;
         for (jsm in resp) {
-            if (is JsonObject m = jsm) {
-                value ts = m.getInteger("t");
-                value dm = m.getStringOrNull("to");
-                String txt = "<p><b>``m.getString("from")``:</b>
-                              ``m.getString("m")``
-                              <i>``fixedTime(ts).instant().time()``</i></p>";
-                if (dm exists) {
+            if (is JsonObject jsonMessage = jsm,
+                    exists msg = parseMessage(jsonMessage)) {
+                String txt = "<p><b>``msg.from``:</b>
+                              ``msg.message``
+                              <i>``msg.time``</i></p>";
+                if (exists dm = msg.to) {
                     sbd.append(txt);
                 } else {
                     sb.append(txt);
                 }
-                if (ts > client.lastTimestamp) {
-                    client.lastTimestamp = ts;
+                if (msg.timestamp > lts) {
+                    lts = msg.timestamp;
                 }
             }
         }
@@ -36,6 +38,7 @@ void doLoadMessages(XMLHttpRequest req)(Event event) {
             }
         } else {
             client.appendToChat(sb.string);
+            client.lastTimestamp = lts;
         }
         if (!sbd.empty) {
             client.appendToDM(sbd.string);
@@ -60,11 +63,11 @@ void doSubmit(XMLHttpRequest req)(Event event) {
             dynamic {
                 msg = document.getElementById("txt").\ivalue;
             }
-            client.lastTimestamp = ts;
             value newMessage = "<p><b>``client.username``:</b>
                                 ``msg.replace("<", "&lt;").replace(">", "&gt;")``
                                 <i>``fixedTime(ts).instant().time()``</i></p>";
             client.appendToChat(newMessage);
+            client.lastTimestamp = ts;
             if (is HTMLElement e = window.document.getElementById("txt")) {
                 dynamic {
                     document.getElementById("txt").\ivalue = "";
