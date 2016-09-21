@@ -6,3 +6,5 @@ autoexportmavendependencies=false
 
 [repositories]
 lookup=/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules
+lookup=server/modules
+lookup=common/modules
