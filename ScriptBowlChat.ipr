@@ -53,12 +53,13 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsclient.iml" filepath="$PROJECT_DIR$/jsclient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/script-bowl-chat.iml" filepath="$PROJECT_DIR$/script-bowl-chat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server.iml" filepath="$PROJECT_DIR$/server.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="Java 7" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="Java 8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/modules" />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -207,28 +208,34 @@
     <library name="Ceylon: ceylon.http.common/1.3.0">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/http/common/1.3.0/ceylon.http.common-1.3.0.car!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/http/common/1.3.0/ceylon.http.common-1.3.0.car!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/http/common/1.3.0/ceylon.http.common-1.3.0.src!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/http/common/1.3.0/ceylon.http.common-1.3.0.src!/" />
       </SOURCES>
     </library>
     <library name="Ceylon: ceylon.http.server/1.3.0">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/http/server/1.3.0/ceylon.http.server-1.3.0.car!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/http/server/1.3.0/ceylon.http.server-1.3.0.car!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/http/server/1.3.0/ceylon.http.server-1.3.0.src!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/http/server/1.3.0/ceylon.http.server-1.3.0.src!/" />
       </SOURCES>
     </library>
     <library name="Ceylon: ceylon.interop.java/1.3.0">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/interop/java/1.3.0/ceylon.interop.java-1.3.0.car!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/interop/java/1.3.0/ceylon.interop.java-1.3.0.car!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/interop/java/1.3.0/ceylon.interop.java-1.3.0.src!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/interop/java/1.3.0/ceylon.interop.java-1.3.0.src!/" />
       </SOURCES>
     </library>
     <library name="Ceylon: ceylon.io/1.3.0">
@@ -245,10 +252,12 @@
     <library name="Ceylon: ceylon.json/1.3.0">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/json/1.3.0/ceylon.json-1.3.0.car!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/json/1.3.0/ceylon.json-1.3.0.car!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
         <root url="jar://$PROJECT_DIR$/../../ceylon-sdk/modules/ceylon/json/1.3.0/ceylon.json-1.3.0.src!/" />
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/json/1.3.0/ceylon.json-1.3.0.src!/" />
       </SOURCES>
     </library>
     <library name="Ceylon: ceylon.language/1.3.0">
@@ -267,6 +276,15 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/net/1.3.0/ceylon.net-1.3.0.src!/" />
+      </SOURCES>
+    </library>
+    <library name="Ceylon: ceylon.time/1.3.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/time/1.3.0/ceylon.time-1.3.0.car!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.ceylon/repo/ceylon/time/1.3.0/ceylon.time-1.3.0.src!/" />
       </SOURCES>
     </library>
     <library name="Ceylon: com.redhat.ceylon.common/1.3.0">
@@ -303,6 +321,15 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$APPLICATION_PLUGINS_DIR$/CeylonIDEA/classes/embeddedDist/repo/com/redhat/ceylon/module-resolver/1.3.0/com.redhat.ceylon.module-resolver-1.3.0.src!/" />
+      </SOURCES>
+    </library>
+    <library name="Ceylon: scriptbowl.chat.common/1.0.0">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/common/modules/scriptbowl/chat/common/1.0.0/scriptbowl.chat.common-1.0.0.car!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/common/modules/scriptbowl/chat/common/1.0.0/scriptbowl.chat.common-1.0.0.src!/" />
       </SOURCES>
     </library>
   </component>
