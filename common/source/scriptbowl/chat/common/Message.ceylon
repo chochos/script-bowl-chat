@@ -7,6 +7,7 @@ import ceylon.time {
 "A message from a user."
 shared class Message(from, message, to=null, timestamp=system.milliseconds) {
     shared String from;
+    "El destinatario del mensaje"
     shared String? to;
     shared String message;
     shared Integer timestamp;

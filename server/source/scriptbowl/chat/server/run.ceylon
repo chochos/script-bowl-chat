@@ -1,4 +1,4 @@
-import java.lang { System, JString=String }
+import java.lang { System }
 import ceylon.http.server { newServer, Endpoint,
     Options,
     equals,
@@ -20,15 +20,6 @@ import ceylon.http.server.endpoints {
     serveStaticFile,
     serveModule
 }
-import com.redhat.ceylon.cmr.ceylon {
-    CeylonUtils
-}
-import java.util {
-    Arrays
-}
-import ceylon.interop.java {
-    javaString
-}
 import ceylon.buffer.charset {
     utf8
 }
@@ -36,15 +27,11 @@ import ceylon.buffer.charset {
 "The entry point for the chat server."
 shared void run() {
     "You must specify a port through the server.port system property"
-    assert(exists port = parseInteger(System.getProperty("server.port", "8080")));
-    value repos = Arrays.asList<JString>(
-        javaString("/Users/ezamudio/Projects/ceylon/ceylon/compiler-js/build/runtime"),
-        javaString("/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/jsclient/modules"),
-        javaString("/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/common/modules"),
-        javaString("/Users/ezamudio/Projects/ceylon/ceylon/dist/dist/repo"),
-        javaString("/Users/ezamudio/Projects/ceylon/ceylon-sdk/modules"),
-        javaString("https://herd.ceylon-lang.org/repo/1"));
-    value manager = CeylonUtils.repoManager().extraUserRepos(repos).buildManager();
+    assert(is Integer port = Integer.parse(System.getProperty("server.port", "8080")));
+    value manager = repoManager("/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/modules",
+        "/Users/ezamudio/.sdkman/candidates/ceylon/current/repo",
+        "https://herd.ceylon-lang.org/repo/1"
+    );
     value server = newServer {
         Endpoint {
             path = equals("/login");
@@ -81,13 +68,13 @@ shared void run() {
             };
         }
     };
-    server.start(SocketAddress("localhost", port), Options{ sessionId = "script-bowl-server";});
+    server.start(SocketAddress("localhost", port),
+        Options { sessionId = "script-bowl-server"; });
 }
 
 "Write an error message to the response."
-void error(Response resp, String message) {
+void error(Response resp, String message) =>
     writeJson(resp, JsonObject{ "error"->message });
-}
 
 "Write a JSON object to the response."
 void writeJson(Response resp, JsonObject|JsonArray data) {

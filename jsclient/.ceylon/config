@@ -3,7 +3,8 @@
 offline=false
 flatclasspath=false
 autoexportmavendependencies=false
+fullyexportmavendependencies=false
 
 
 [repositories]
-lookup=/Users/ezamudio/Projects/ceylon/otros/script-bowl-chat/common/modules
+output=../modules

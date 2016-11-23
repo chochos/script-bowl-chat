@@ -60,7 +60,7 @@ void doSubmit(XMLHttpRequest req)(Event event) {
         if (exists ts = resp.getIntegerOrNull("t")) {
             String msg;
             dynamic {
-                msg = document.getElementById("txt").\ivalue;
+                msg = document.getElementById("txt").\ivalue else "<NO TXT>";
             }
             value newMessage = "<p><i>``fixedTime(ts).instant().time()``</i>
                                 <b>``client.username``:</b>
@@ -93,20 +93,15 @@ Boolean submit(Event event) {
     if (client.loggedIn) {
         String txt;
         dynamic {
-            txt = document.getElementById("txt").\ivalue;
+            txt = document.getElementById("txt")?.\ivalue else "???NO TEXT!!!";
         }
-        String msg;
-        String? dst;
         //Check if it's a direct message
-        if (txt.startsWith("@"), exists p0 = txt.firstOccurrence(' ')) {
-            dst = txt[1..p0].trimmed;
-            msg = txt.spanFrom(p0+1).trimmed;
-        } else {
-            msg = txt.trimmed;
-            dst = null;
-        }
+        value [msg, dst] =
+            if (txt.startsWith("@"), exists p0 = txt.firstOccurrence(' '))
+            then [txt.spanFrom(p0+1).trimmed, txt[1..p0].trimmed]
+            else [txt.trimmed, null];
         if (!msg.empty) {
-            String url = (dst exists then client.urlDM else client.urlSubmit)
+            value url = (dst exists then client.urlDM else client.urlSubmit)
                 .replace("USER", encodeParam(client.token))
                 .replace("MSG", encodeParam(msg));
             if (exists dst) {

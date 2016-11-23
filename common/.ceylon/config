@@ -3,4 +3,8 @@
 offline=false
 flatclasspath=false
 autoexportmavendependencies=false
+fullyexportmavendependencies=false
 
+
+[repositories]
+output=../modules

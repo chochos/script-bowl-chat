@@ -12,10 +12,9 @@ object server {
     value messages = ArrayList<Message>(16, 2.0);
 
     shared String addUser(User user) {
-        value token = tokenForUser(user);
-        print("Adding ``user.name`` => ``token``");
-        users[token] = user;
-        return token;
+        print("Adding ``user.name`` => ``user.token``");
+        users[user.token] = user;
+        return user.token;
     }
     shared Boolean removeUser(String username) {
         print("Removing ``username``");
@@ -42,7 +41,6 @@ object server {
     shared [User*] listUsers(String exclude) =>
         [ for (k->u in users) if (u.name != exclude) u];
 
-    String tokenForUser(User u) => "``u.name``_``u.since``";
 }
 
 "A user that's logged into the chat server"
@@ -50,5 +48,6 @@ class User(name, since=system.milliseconds) {
     shared String name;
     shared Integer since;
     shared JsonObject toJson() =>
-        JsonObject{"name"->name,"since"->since};
+        JsonObject { "name"->name,"since"->since};
+    shared String token = "``name``_``since``";
 }

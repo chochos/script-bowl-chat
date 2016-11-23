@@ -3,7 +3,7 @@ require.config({
     waitSeconds: 5
 });
 
-require(["ceylon/language/1.3.0/ceylon.language-1.3.0",
-    'scriptbowl/chat/client/1.0.0/scriptbowl.chat.client-1.0.0'], function(cl, chat) {
+require(["ceylon/language/1.3.1/ceylon.language-1.3.1",
+    'scriptbowl/chat/client/1.0.1/scriptbowl.chat.client-1.0.1'], function(cl, chat) {
     chat.setup();
 });

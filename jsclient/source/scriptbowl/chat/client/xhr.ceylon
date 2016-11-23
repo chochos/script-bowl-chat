@@ -1,5 +1,6 @@
 import ceylon.interop.browser { window, XMLHttpRequest, newXMLHttpRequest }
-import ceylon.interop.browser.dom { Event,
+import ceylon.interop.browser.dom {
+    Event,
     EventListener }
 
 "Makes an async request with the function returned
@@ -18,22 +19,18 @@ void xhr(
 
 "Initial setup for the client."
 shared void setup() {
-    if (exists e = window.document.getElementById("logon")) {
-        e.addEventListener("click", object satisfies EventListener {
-            handleEvent = login;
-        });
+    value doc = window.document;
+    void addListener(String elementName, String eventName, Anything(Event) handler) {
+        if (exists e = doc.getElementById(elementName)) {
+            e.addEventListener(eventName, object satisfies EventListener {
+                handleEvent = handler;
+            });
+        }
     }
-    if (exists e = window.document.getElementById("send")) {
-        e.addEventListener("click", object satisfies EventListener {
-            handleEvent = submit;
-        });
-    }
-    if (exists e = window.document.getElementById("form")) {
-        e.addEventListener("submit", object satisfies EventListener {
-            handleEvent = submit;
-        });
-    }
-    if (exists e = window.document.getElementById("powered")) {
+    addListener("logon", "click", login);
+    addListener("send", "click", submit);
+    addListener("form", "submit", submit);
+    if (exists e = doc.getElementById("powered")) {
         e.innerHTML = "Powered by Ceylon ``language.version``";
     }
 }

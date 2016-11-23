@@ -35,12 +35,18 @@ void doLogin(XMLHttpRequest req)(Event event) {
 
 "Sends an async login request."
 void login(Event event) {
-    String uname;
+    String? uname;
     dynamic {
         uname = document.getElementById("login").\ivalue;
     }
-    print("Login ``uname``");
-    xhr(client.urlLogin.replace("USER", encodeParam(uname)), doLogin);
+    if (exists uname) {
+        print("Login ``uname``");
+        xhr(client.urlLogin.replace("USER", encodeParam(uname)), doLogin);
+    } else {
+        dynamic {
+            alert("No login found!!!");
+        }
+    }
 }
 
 "The callback function for handling the user list response."
